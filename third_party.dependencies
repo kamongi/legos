@@ -1,0 +1,58 @@
+# MUST DO, before running the "manager.py" package entry point.
+
+# Download the AllegroGraph (AG) Server and set up an AG instance
+	#:: See "https://franz.com/agraph/downloads/server"
+
+	# If you are using an LXD ubuntu:xenial container
+		# Copy the server tar.gz file into a default ubuntu user home
+		$ lxc push agraph-6.2.2-linuxamd64.64.tar.gz containerName/home/ubuntu/
+		$ lxc exec containerName bash
+		$ su ubuntu 
+		
+		# Change into /home/ubuntu
+		$ cd
+
+	#:: Install
+		$ tar zxf agraph-6.2.2-linuxamd64.64.tar.gz 
+
+		# In the current working directory
+		$ agraph-6.2.2/install-agraph ag6.2.2  
+
+		# You can start AllegroGraph by running:  
+		$ /home/ubuntu/ag6.2.2/bin/agraph-control --config ag6.2.2/lib/agraph.cfg start
+		 
+		# You can stop AllegroGraph by running:  
+		$ /home/ubuntu/ag6.2.2/bin/agraph-control --config ag6.2.2/lib/agraph.cfg stop
+
+		# To verify that AllegroGraph is running correctly, 
+		# open a browser and direct it to the AllegroGraph WebView URL: http://localhost:10035 
+
+# Download the AllegroGraph Python Client and set it up locally (recommend using a virtualenv for Python 2.7)
+	#:: See "https://franz.com/agraph/downloads/clients"
+
+	# Install python 2.7 if it is missing
+	$ sudo apt install python-minimal
+
+	# pip install agraph-python 
+
+	# OR manual Install
+		$ tar zxf agraph-6.2.2-client-python.tar.gz 
+
+		#The following package is required in all cases to use Python 2:
+
+		# This will bring in Python, dev headers and GCC as dependencies  
+		$ sudo apt-get install python-pip 
+		
+		#To use the OpenSSL backend in curl
+		# sudo apt-get install libcurl4-openssl-dev libssl-dev 
+
+		# Create and activate a virtualenv (i.e., dev)
+		$ virtualenv dev
+		$ source dev/bin/activate
+
+		# Install the AG client package
+		# pip install ./agraph-{property agraph-version}-client-python 
+		$ pip install ./../../Downloads/agraph-6.2.2-client-python
+
+# Note: 
+	#:: This package use the AllegroGraph 6.2.2 Server/Client on Ubuntu 16.04 & Python 2.7
